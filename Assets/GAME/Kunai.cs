@@ -14,9 +14,9 @@ public class Kunai : MonoBehaviour
 
     private void Update()
     {
-        if (!stuck && rb.velocity.sqrMagnitude > 0.01f) // Eğer hareket ediyorsa
+        if (!stuck && rb.linearVelocity.sqrMagnitude > 0.01f) // Eğer hareket ediyorsa
         {
-            float angle = Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg;
+            float angle = Mathf.Atan2(rb.linearVelocity.y, rb.linearVelocity.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0, 0, angle);
         }
     }
@@ -32,7 +32,7 @@ public class Kunai : MonoBehaviour
     private void StickToWall(Collider2D wall)
     {
         stuck = true;
-        rb.velocity = Vector2.zero; // Hareketi durdur
+        rb.linearVelocity = Vector2.zero; // Hareketi durdur
         rb.isKinematic = true; // Fizik etkilerini kapat
         transform.parent = wall.transform; // Kunai'yi duvarın çocuğu yap, böylece duvarla beraber hareket eder
 

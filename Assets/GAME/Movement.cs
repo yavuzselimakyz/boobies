@@ -194,7 +194,9 @@ public class Movement : MonoBehaviour
     }
     void createdust()
     {
+        
         dusteffct.Play();
+        
     }
     private void WallJump()
     {

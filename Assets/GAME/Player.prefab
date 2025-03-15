@@ -4932,6 +4932,8 @@ GameObject:
   - component: {fileID: 7882759770930555540}
   - component: {fileID: 4904759073352119277}
   - component: {fileID: 4622627922429155200}
+  - component: {fileID: -248685415946569594}
+  - component: {fileID: 4458842628862689832}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -5258,6 +5260,33 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &-248685415946569594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3106069819959338688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d96dc9b972bca5044a8eb18b7e7326fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4458842628862689832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3106069819959338688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d015c23f604d2040a89d55766537b54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  kunaiPrefab: {fileID: 4843477149243751198, guid: 45fa128ba20fcc1489fc2751faa5a521, type: 3}
+  throwForce: 20
+  kunaiSpawnPoint: {fileID: 881532174853548429}
 --- !u!1 &3835298459328116428
 GameObject:
   m_ObjectHideFlags: 0
