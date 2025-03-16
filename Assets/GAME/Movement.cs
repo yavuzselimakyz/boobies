@@ -28,12 +28,13 @@ public class Movement : MonoBehaviour
 
     private bool canDash = true;
     private bool isDashing;
+    private bool wasFalling = false;
     private float dashingPower = 12f;
     private float dashingTime = 0.2f;
     private float dashingCooldown = 0.5f;
 
     [Header("Run Parameters")]
-    public float runMaxSpeed = 1; // Maksimum hız
+    public float runMaxSpeed = 1; // Maksimum hızS
     public float runAccelAmount = 1; // Hızlanma ivmesi
     public float runDeccelAmount = 1; // Yavaşlama ivmesi
     public float accelInAir = 0.5f; // Havada hızlanma çarpanı
@@ -61,6 +62,11 @@ public class Movement : MonoBehaviour
         if (isDashing)
         {
             return;
+        }
+
+        if (rb.linearVelocity.y < -0.1f)
+        {
+            wasFalling = true;
         }
 
         lastOnGroundTime -= Time.deltaTime; // Yere değme süresi güncelleniyor
@@ -93,7 +99,7 @@ public class Movement : MonoBehaviour
             animator.SetBool("isRising", true);
             animator.SetBool("isFalling", false);
             coyoteTimeCounter = 0;
-            createdust();
+            
         }
 
         if (Input.GetKeyUp(KeyCode.Space) && rb.linearVelocity.y > 0f) // Zıplama tuşu değiştirildi
@@ -194,9 +200,16 @@ public class Movement : MonoBehaviour
     }
     void createdust()
     {
-        
-        dusteffct.Play();
-        
+
+        if (dusteffct != null)
+        {
+            dusteffct.Play();
+        }
+        else
+        {
+            Debug.LogWarning("Dust Effect is missing!");
+        }
+
     }
     private void WallJump()
     {
@@ -217,7 +230,7 @@ public class Movement : MonoBehaviour
             isWallJumping = true;
             rb.linearVelocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
             wallJumpingCounter = 0f;
-            createdust();
+            
 
             if (transform.localScale.x != wallJumpingDirection)
             {
@@ -239,8 +252,14 @@ public class Movement : MonoBehaviour
         {
             StartCoroutine(FadeAndDestroy()); // Kaybolma sürecini başlat
         }
-
+        if (collision.gameObject.CompareTag("Ground") && wasFalling)
+        {
+            dusteffct.Play();
+            wasFalling = false;
+        }
     }
+   
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Dashreset"))
