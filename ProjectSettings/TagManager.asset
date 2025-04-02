@@ -8,6 +8,8 @@ TagManager:
   - Wall
   - Spike
   - Dashreset
+  - YKontrol
+  - Kunai
   layers:
   - Default
   - TransparentFX
