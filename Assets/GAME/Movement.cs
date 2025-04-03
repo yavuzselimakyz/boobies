@@ -99,7 +99,7 @@ public class Movement : MonoBehaviour
             animator.SetBool("isRising", true);
             animator.SetBool("isFalling", false);
             coyoteTimeCounter = 0;
-            
+            createdust();
         }
 
         if (Input.GetKeyUp(KeyCode.Space) && rb.linearVelocity.y > 0f) // Zıplama tuşu değiştirildi
@@ -254,7 +254,6 @@ public class Movement : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Ground") && wasFalling)
         {
-            dusteffct.Play();
             wasFalling = false;
         }
     }
