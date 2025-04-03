@@ -31,7 +31,7 @@ public class Movement : MonoBehaviour
     private bool wasFalling = false;
     private float dashingPower = 12f;
     private float dashingTime = 0.2f;
-    private float dashingCooldown = 0.5f;
+    private float dashingCooldown = 0.2f;
 
     [Header("Run Parameters")]
     public float runMaxSpeed = 1; // Maksimum hızS

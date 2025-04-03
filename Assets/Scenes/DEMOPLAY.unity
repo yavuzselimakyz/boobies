@@ -3955,15 +3955,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c65efb2fc29e1c748870ad16c61b3a60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boundaryObjects:
-  - {fileID: 89057160}
-  - {fileID: 598333702}
-  - {fileID: 788124998}
-  - {fileID: 1793545340}
-  - {fileID: 459396151}
-  smoothSpeed: 2
-  offset: 18
-  minX: 0
 --- !u!1 &120965753
 GameObject:
   m_ObjectHideFlags: 0
