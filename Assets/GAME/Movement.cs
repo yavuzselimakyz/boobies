@@ -29,7 +29,7 @@ public class Movement : MonoBehaviour
     private bool canDash = true;
     private bool isDashing;
     private bool wasFalling = false;
-    private float dashingPower = 12f;
+    private float dashingPower = 10f;
     private float dashingTime = 0.2f;
     private float dashingCooldown = 0.2f;
 
@@ -317,7 +317,7 @@ public class Movement : MonoBehaviour
         // Eğer karakter Dash sırasında yerdeyse, 2 saniye cooldown uygula
         if (IsGrounded())
         {
-            yield return new WaitForSeconds(2f); // 2 saniye beklet
+            yield return new WaitForSeconds(0f); // 2 saniye beklet
         }
         else
         {
