@@ -28,6 +28,8 @@ public class Movement : MonoBehaviour
 
     private bool canDash = true;
     private bool isDashing;
+
+    public bool canMove = true;
     private bool wasFalling = false;
     private float dashingPower = 10f;
     private float dashingTime = 0.2f;
@@ -59,6 +61,9 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
+        if (!canMove) return;
+
+
         if (isDashing)
         {
             return;
@@ -230,7 +235,7 @@ public class Movement : MonoBehaviour
             isWallJumping = true;
             rb.linearVelocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
             wallJumpingCounter = 0f;
-            
+
 
             if (transform.localScale.x != wallJumpingDirection)
             {
@@ -257,7 +262,7 @@ public class Movement : MonoBehaviour
             wasFalling = false;
         }
     }
-   
+
 
     void OnTriggerEnter2D(Collider2D other)
     {

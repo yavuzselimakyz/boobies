@@ -3,110 +3,132 @@ using UnityEngine;
 
 public class kunaistate : MonoBehaviour
 {
-    private bool isKunaiMode = false;
-    private float slowMotionTimeScale = 0.2f;
-    private float normalTimeScale = 1f;
-    private float slowMotionDuration = 1f;
-    private Coroutine slowMotionCoroutine;
+    [SerializeField] private GameObject trajectoryDotPrefab;
+    [SerializeField] private int numberOfDots = 20;
+    [SerializeField] private float dotSpacing = 0.1f;
+    [SerializeField] private float gravity = 9.8f;
 
-    private Movement characterMovement;
-    public GameObject kunaiPrefab;
-    public float throwForce = 20f;
-    private Vector2 throwDirection;
-    public Transform kunaiSpawnPoint;
+    private GameObject[] trajectoryDots;
 
-    private void Start()
+    [SerializeField] private GameObject kunaiPrefab;
+    [SerializeField] private Transform kunaiSpawnPoint;
+    [SerializeField] private float throwSpeed = 15f;
+    [SerializeField] private float slowTimeScale = 0.2f;
+    [SerializeField] private float throwCooldown = 0.5f;
+    
+
+    private Vector2 aimDirection = Vector2.right;
+    private bool canThrow = true;
+
+    [SerializeField] private Movement move;
+
+    void Start()
     {
-        characterMovement = GetComponent<Movement>();
-        if (kunaiSpawnPoint == null)
+        
+        trajectoryDots = new GameObject[numberOfDots];
+        for (int i = 0; i < numberOfDots; i++)
         {
-            Debug.LogError("Kunai Spawn Point atanmamış!");
+            trajectoryDots[i] = Instantiate(trajectoryDotPrefab, transform.position, Quaternion.identity);
+            trajectoryDots[i].SetActive(false);
         }
     }
 
-    private void Update()
+    void Update()
     {
+        if (!canThrow) return;
+
         if (Input.GetKeyDown(KeyCode.X))
         {
-            EnterKunaiMode();
+            move.canMove = false;    
+            Time.timeScale = slowTimeScale;
+            Time.fixedDeltaTime = 0.02f * Time.timeScale;
+
+            
+        }
+
+        if (Input.GetKey(KeyCode.X))
+        {
+            move.canMove = false;
+
+            UpdateAimDirection();
         }
 
         if (Input.GetKeyUp(KeyCode.X))
         {
-            ExitKunaiMode();
+            Time.timeScale = 1f;
+            Time.fixedDeltaTime = 0.02f;
+
+            
+            
+            HideTrajectory();
+
             ThrowKunai();
         }
-
-        if (isKunaiMode)
-        {
-            HandleKunaiDirection();
-        }
     }
 
-    private void EnterKunaiMode()
+    void UpdateAimDirection()
     {
-        isKunaiMode = true;
-        Time.timeScale = slowMotionTimeScale;
-        slowMotionCoroutine = StartCoroutine(ResetTimeScaleAfterDelay());
+        float x = Input.GetKey(KeyCode.D) ? 1f : Input.GetKey(KeyCode.A) ? -1f : 0f;
+        float y = Input.GetKey(KeyCode.W) ? 1f : Input.GetKey(KeyCode.S) ? -1f : 0f;
 
-        if (characterMovement != null)
+        Vector2 dir = new Vector2(x, y);
+
+        if (dir == Vector2.down || dir == Vector2.up) return;
+
+
+
+        if (dir.sqrMagnitude > 0.1f)
         {
-            characterMovement.enabled = false;
+            aimDirection = dir.normalized;
+
+            // Oku yönüne döndür
+            float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
+            
+        }
+        if (dir != Vector2.zero)
+        {
+            ShowTrajectory();
         }
     }
-
-    private void ExitKunaiMode()
+    void ShowTrajectory()
     {
-        isKunaiMode = false;
+        Vector2 startPos = kunaiSpawnPoint.position;
+        Vector2 startVelocity = aimDirection * throwSpeed;
+        Vector2 gravityEffect = new Vector2(0, -gravity);
 
-        if (slowMotionCoroutine != null)
+        for (int i = 0; i < numberOfDots; i++)
         {
-            StopCoroutine(slowMotionCoroutine);
-        }
+            float t = i * dotSpacing;
+            Vector2 pos = startPos + startVelocity * t + 0.5f * gravityEffect * t * t;
 
-        Time.timeScale = normalTimeScale;
-
-        if (characterMovement != null)
-        {
-            characterMovement.enabled = true;
+            trajectoryDots[i].transform.position = pos;
+            trajectoryDots[i].SetActive(true);
         }
     }
-
-    private void HandleKunaiDirection()
+    void HideTrajectory()
     {
-        float x = 0, y = 0;
-
-        if (Input.GetKey(KeyCode.UpArrow)) y = 1;
-        if (Input.GetKey(KeyCode.DownArrow)) y = -1;
-        if (Input.GetKey(KeyCode.LeftArrow)) x = -1;
-        if (Input.GetKey(KeyCode.RightArrow)) x = 1;
-
-        throwDirection = new Vector2(x, y).normalized; // Çapraz yönleri desteklemek için normalize ettik
-    }
-
-    private void ThrowKunai()
-    {
-        if (throwDirection == Vector2.zero)
+        foreach (var dot in trajectoryDots)
         {
-            throwDirection = new Vector2(transform.localScale.x, 0); // Varsayılan olarak karakterin yönüne fırlat
+            dot.SetActive(false);
         }
+    }
+    void ThrowKunai()
+    {
+        canThrow = false;
 
         GameObject kunai = Instantiate(kunaiPrefab, kunaiSpawnPoint.position, Quaternion.identity);
-        Rigidbody2D kunaiRb = kunai.GetComponent<Rigidbody2D>();
+        Rigidbody2D rb = kunai.GetComponent<Rigidbody2D>();
+        rb.gravityScale = 0f;
+        rb.linearVelocity = aimDirection * throwSpeed;
 
-        if (kunaiRb != null)
-        {
-            kunaiRb.linearVelocity = throwDirection * throwForce;
-        }
-        else
-        {
-            Debug.LogError("Kunai Rigidbody2D component'ı eksik!");
-        }
+        Invoke(nameof(ResetThrow), throwCooldown);
     }
 
-    private IEnumerator ResetTimeScaleAfterDelay()
+    void ResetThrow()
     {
-        yield return new WaitForSecondsRealtime(slowMotionDuration);
-        Time.timeScale = normalTimeScale;
+        canThrow = true;
+        move.canMove = true;
     }
 }
+
+
