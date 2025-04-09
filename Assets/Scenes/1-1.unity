@@ -1076,6 +1076,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 4790964127979831386, guid: 879817b266b625c4eb24675d4883e297, type: 3}
   spawnPoint: {fileID: 137145942}
+  cameraTransform: {fileID: 1884900735}
+  cameraResetPosition: {x: 0, y: 0, z: -10}
+  cameraSmoothSpeed: 0.125
 --- !u!212 &137145944
 SpriteRenderer:
   m_ObjectHideFlags: 0

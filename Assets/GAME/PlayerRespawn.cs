@@ -1,11 +1,19 @@
 using UnityEngine;
 using System.Collections;
+using UnityEditor.SceneManagement;
 
 public class PlayerRespawn : MonoBehaviour
 {
-    public GameObject playerPrefab; // Spawn edilecek Player prefabı
-    public Transform spawnPoint; // Player'ın doğacağı konum
-    private bool isRespawning = false; // Tekrar tekrar spawn olmaması için kontrol
+
+    public GameObject playerPrefab;
+    public Transform spawnPoint;
+    private bool isRespawning = false;
+
+    [Header("Kamera Ayarları")]
+    public Transform cameraTransform; // Kamera objesi
+    public Vector3 cameraResetPosition = new Vector3(17f, 5.5f, -10f); // Geri çekilme pozisyonu (Z sabit)
+
+    public float cameraSmoothSpeed = 0.125f; // Kamera geçiş yumuşaklığı
 
     private void Update()
     {
@@ -15,37 +23,45 @@ public class PlayerRespawn : MonoBehaviour
             StartCoroutine(RespawnPlayer());
         }
     }
+    IEnumerator MoveCameraToPosition(Vector3 targetPos)
+    {
+        while (Vector3.Distance(cameraTransform.position, targetPos) > 0.01f)
+        {
+            cameraTransform.position = Vector3.Lerp(cameraTransform.position, targetPos, cameraSmoothSpeed);
+            yield return null;
+        }
 
+        cameraTransform.position = targetPos; // Tam hedefe oturt
+    }
     IEnumerator RespawnPlayer()
     {
-        isRespawning = true; // Respawn sürecini başlat
-        yield return new WaitForSeconds(1f); // 1 saniye bekle
+        isRespawning = true;
 
-        // Spawn edilen yeni player objesini oluştur
+        // Kamera hedef pozisyona yavaşça geçsin
+        if (cameraTransform != null)
+        {
+            StartCoroutine(MoveCameraToPosition(cameraResetPosition));
+        }
+
+        yield return new WaitForSeconds(1f);
+
         GameObject newPlayer = Instantiate(playerPrefab, spawnPoint.position, Quaternion.identity);
 
-        // Yeni oyuncuyu konsola yazdır
         Debug.Log("Yeni oyuncu spawn edildi: " + newPlayer.name);
 
-        // Renderer bileşeninin aktif olup olmadığını kontrol et
-        SpriteRenderer playerRenderer = newPlayer.GetComponent<SpriteRenderer>(); // Eğer 2D ise
+        SpriteRenderer playerRenderer = newPlayer.GetComponent<SpriteRenderer>();
         if (playerRenderer != null)
         {
-            playerRenderer.enabled = true; // Renderer'ı aktif et
-        }
-        else
-        {
-            Debug.LogWarning("SpriteRenderer bulunamadı!");
+            playerRenderer.enabled = true;
         }
 
-        // Eğer bir Rigidbody2D kullanıyorsa, onu kontrol et
         Rigidbody2D rb = newPlayer.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
-            rb.linearVelocity = Vector2.zero; // Hız sıfırlanabilir
-            rb.isKinematic = false; // Kinematik değilse fizik etkileşimi olacak
+            rb.linearVelocity = Vector2.zero;
+            rb.isKinematic = false;
         }
 
-        isRespawning = false; // Respawn süreci tamamlandı
+        isRespawning = false;
     }
 }
