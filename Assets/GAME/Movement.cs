@@ -61,7 +61,12 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
-        if (!canMove) return;
+        if (!canMove)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return; // input bile alma
+        }
+
 
 
         if (isDashing)
