@@ -6891,20 +6891,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 99821812}
   m_Enabled: 0
   m_EditorHideFlags: 0
-<<<<<<< HEAD
-  m_Script: {fileID: 11500000, guid: fb9a0f0eafba5fd4db59bad2087fa14f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerMovementScript: {fileID: 1119007337}
-  kunaiPrefab: {fileID: 5209253246255893540, guid: b8ddafce1c6c1c74aa36f165554557b1, type: 3}
-  throwPoint: {fileID: 917914939}
-  kunaiSpeed: 20
-  minInputThreshold: 0.2
-  isBulletTime: 0
-  bulletTimeFactor: 5
-  bulletTimeDuration: 3
---- !u!1001 &1123473517
-=======
   m_Script: {fileID: 11500000, guid: 074e4da56cbdeb54cad4c99b5909868f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
@@ -6912,7 +6898,6 @@ MonoBehaviour:
   spawnPoint: {fileID: 917914939}
   spawnCooldown: 2
 --- !u!1001 &1144880435
->>>>>>> 6d089b16a653abec0472f5d9cef96a71034b2295
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
