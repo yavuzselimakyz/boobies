@@ -7790,9 +7790,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45ca363a271aeb7458aa7089c928828d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-  PlatformMove: {fileID: 0}
-=======
+  HEAD
+  m_Script: {fileID: 11500000, guid: fb9a0f0eafba5fd4db59bad2087fa14f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovementScript: {fileID: 1119007337}
+  kunaiPrefab: {fileID: 5209253246255893540, guid: b8ddafce1c6c1c74aa36f165554557b1, type: 3}
+  throwPoint: {fileID: 917914939}
+  kunaiSpeed: 20
+  minInputThreshold: 0.2
+  isBulletTime: 0
+  bulletTimeFactor: 5
+  bulletTimeDuration: 3
 --- !u!58 &1260495685
 CircleCollider2D:
   m_ObjectHideFlags: 0
