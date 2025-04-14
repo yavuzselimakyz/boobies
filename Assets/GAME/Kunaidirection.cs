@@ -1,32 +1,42 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Kunaidirection : MonoBehaviour
 {
-    public Transform crosshair;           // Crosshair Transform'u
-    public float stickDepth = 0.1f;       // Saplanma derinliği
-    public List<string> targetTags;       // Etkileşime giren tagler
-    private bool stuck = false;           // Saplanma kontrolü
+    public float stickDepth = 0.05f;  // Duvara ne kadar gömülsün
+    public string[] targetTags = { "Wall", "Enemy" };  // Hangi tag'lere saplanacak
+    private bool stuck = false;
 
-    void Update()
+    private Rigidbody2D rb;
+
+    void Start()
     {
-        // Buradaki kısım, sadece yönlendirmeyi kontrol etmek için
-        // Kunai'nin rotası zaten `KunaiThrower.cs` tarafından doğru şekilde ayarlanacak
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (stuck) return;
 
-        if (targetTags.Contains(other.tag))
+        foreach (string tag in targetTags)
         {
-            stuck = true;
-            transform.position += transform.right * stickDepth;
-
-            Rigidbody2D rb = GetComponent<Rigidbody2D>();
-            rb.linearVelocity = Vector2.zero;
-            rb.isKinematic = true;
-            rb.simulated = false;
+            if (other.CompareTag(tag))
+            {
+                StickToTarget(other);
+                break;
+            }
         }
+    }
+
+    void StickToTarget(Collider2D other)
+    {
+        stuck = true;
+
+        // Kunai'nin ucunu biraz ileri al, böylece duvara saplanmış gibi görünür
+        transform.position += transform.right * stickDepth;
+
+        // Rigidbody'yi durdur ve pasifleştir
+        rb.linearVelocity = Vector2.zero;
+        rb.isKinematic = true;
+        rb.simulated = false;
     }
 }

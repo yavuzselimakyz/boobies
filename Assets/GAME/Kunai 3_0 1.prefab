@@ -12,9 +12,6 @@ GameObject:
   - component: {fileID: 5934709570059200139}
   - component: {fileID: 5633685238331691967}
   - component: {fileID: 2298110899520467942}
-  - component: {fileID: 6106856162461276880}
-  - component: {fileID: 4182433093213288921}
-  - component: {fileID: 724650461188529162}
   - component: {fileID: 2375066120363034107}
   m_Layer: 0
   m_Name: Kunai 3_0 1
@@ -197,7 +194,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 2
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -209,47 +206,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &6106856162461276880
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6002920938595984876}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d96dc9b972bca5044a8eb18b7e7326fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectileVisual: {fileID: 0}
---- !u!114 &4182433093213288921
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6002920938595984876}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c072a441c56c1524981787ce346e976c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectileVisual: {fileID: 404377164227988918}
-  projectileShadow: {fileID: 6315860037682243599}
-  projectile: {fileID: 6106856162461276880}
---- !u!114 &724650461188529162
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6002920938595984876}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d96dc9b972bca5044a8eb18b7e7326fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectileVisual: {fileID: 0}
 --- !u!114 &2375066120363034107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,8 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b00f18b0d11c26c448c43b73a0530b9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crosshair: {fileID: 7491327900666319262, guid: 364ec130ab62e4d408d6504fb05c4d1e, type: 3}
-  stickDepth: 0.1
+  stickDepth: -0.01
   targetTags:
   - Wall
   - Ground

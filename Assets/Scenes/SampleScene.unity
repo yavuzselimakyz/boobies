@@ -693,8 +693,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kunaiPrefab: {fileID: 6002920938595984876, guid: 9bca1c0981b3b134fb8428b67bbf7276, type: 3}
   kunaiSpawnPoint: {fileID: 528673364}
-  crosshairPrefab: {fileID: 5167046812179080372, guid: 364ec130ab62e4d408d6504fb05c4d1e, type: 3}
-  throwForce: 20
+  crosshairPrefab: {fileID: 3527874300452161211, guid: c16cd63bdd1abe245bb6c55801d621df, type: 3}
+  throwForce: 30
+  throwCooldown: 1
 --- !u!1 &574062936
 GameObject:
   m_ObjectHideFlags: 0
