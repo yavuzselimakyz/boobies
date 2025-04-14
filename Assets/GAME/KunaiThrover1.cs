@@ -6,38 +6,51 @@ public class KunaiThrower : MonoBehaviour
     public Transform kunaiSpawnPoint;
     public GameObject crosshairPrefab;
     public float throwForce = 20f;
-    public float throwCooldown = 1f; // 1 saniye bekleme süresi
+    public float throwCooldown = 1f;
 
     private GameObject crosshairInstance;
     private bool isAiming = false;
-    private float lastThrowTime = -Mathf.Infinity; // Başlangıçta fırlatmaya izin ver
+    private float lastThrowTime = -Mathf.Infinity;
 
+    private byte kunaiAmount = 3;
+    
     void Start()
     {
         crosshairInstance = Instantiate(crosshairPrefab);
         crosshairInstance.SetActive(false);
+        
     }
 
     void Update()
     {
+        if (kunaiAmount <= 0)
+        {
+            crosshairInstance.SetActive(false);
+            return;
+        }
+
         if (Input.GetMouseButtonDown(1))
         {
             crosshairInstance.SetActive(true);
             isAiming = true;
+            
         }
 
         if (Input.GetMouseButtonUp(1))
         {
             crosshairInstance.SetActive(false);
             isAiming = false;
+            
+
         }
 
         if (isAiming && Input.GetMouseButtonDown(0))
         {
-            // Spam koruması: sadece belirli aralıkla atılabilir
             if (Time.time >= lastThrowTime + throwCooldown)
             {
                 ThrowKunai();
+                kunaiAmount--;
+                
                 lastThrowTime = Time.time;
             }
         }
@@ -54,5 +67,17 @@ public class KunaiThrower : MonoBehaviour
 
         Rigidbody2D rb = kunai.GetComponent<Rigidbody2D>();
         rb.AddForce(direction * throwForce, ForceMode2D.Impulse);
+    }
+
+    // 🔼 Dışarıdan kunai sayısını artırmak için
+    public void AddKunai(byte amount = 1)
+    {
+        kunaiAmount += amount;
+    }
+
+    // 🔽 Dilersen bu methodu da daha sade hale getirebiliriz
+    public byte GetKunaiAmount()
+    {
+        return kunaiAmount;
     }
 }

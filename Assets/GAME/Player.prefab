@@ -104,10 +104,10 @@ GameObject:
   - component: {fileID: 4924066536059057844}
   - component: {fileID: 6452024718140607344}
   - component: {fileID: 1446515751227432905}
-  - component: {fileID: 7998896254122034877}
   - component: {fileID: 7233546692901973506}
   - component: {fileID: 698406502390776550}
   - component: {fileID: 757577118530483340}
+  - component: {fileID: 7998896254122034877}
   - component: {fileID: 2242875444989128229}
   - component: {fileID: 8049258481670136287}
   m_Layer: 0
@@ -215,40 +215,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7998896254122034877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4790964127979831386}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab7c61e24ddc679469a07de46b675410, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dusteffct: {fileID: 8687781308324487486}
-  canMove: 1
-  runMaxSpeed: 7
-  runAccelAmount: 10
-  runDeccelAmount: 10
-  accelInAir: 0.5
-  deccelInAir: 0.5
-  doConserveMomentum: 1
-  rb: {fileID: 757577118530483340}
-  groundCheck: {fileID: 4070009773575232399}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  wallCheck: {fileID: 4588219440177995318}
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 72
-  animator: {fileID: 1446515751227432905}
-  tr: {fileID: 698406502390776550}
-  afterimagePrefab: {fileID: 8614165808363714784, guid: 3122e7079ccce3440a328c342c382598, type: 3}
-  afterimageSpawnRate: 0.04
-  afterimageLifetime: 0.5
 --- !u!61 &7233546692901973506
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -438,6 +404,40 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &7998896254122034877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4790964127979831386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab7c61e24ddc679469a07de46b675410, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dusteffct: {fileID: 8687781308324487486}
+  canMove: 1
+  runMaxSpeed: 7
+  runAccelAmount: 10
+  runDeccelAmount: 10
+  accelInAir: 0.5
+  deccelInAir: 0.5
+  doConserveMomentum: 1
+  rb: {fileID: 757577118530483340}
+  groundCheck: {fileID: 4070009773575232399}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  wallCheck: {fileID: 4588219440177995318}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 72
+  animator: {fileID: 1446515751227432905}
+  tr: {fileID: 698406502390776550}
+  afterimagePrefab: {fileID: 8614165808363714784, guid: 3122e7079ccce3440a328c342c382598, type: 3}
+  afterimageSpawnRate: 0.04
+  afterimageLifetime: 0.5
 --- !u!114 &2242875444989128229
 MonoBehaviour:
   m_ObjectHideFlags: 0
