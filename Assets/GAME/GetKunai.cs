@@ -11,7 +11,8 @@ public class GetKunai : MonoBehaviour
         kunaiThrover = GetComponent<KunaiThrower>();
     }
 
-    void OnTriggerStay2D(Collider2D other)
+    
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Kunai"))
         {
