@@ -59,7 +59,6 @@ public class Movement : MonoBehaviour
     private float lastAfterimageTime;
     private float lastOnGroundTime; // En son yere değdiği zamanın süresi
 
-    
     private void Update()
     {
         

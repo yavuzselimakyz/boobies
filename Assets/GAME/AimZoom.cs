@@ -17,8 +17,8 @@ public class AimZoom : MonoBehaviour
     }
     void Update()
     {
-
-
+        if (kunaiThrower.GetKunaiAmount() <= 0 && kunaiThrower != null ) return;
+        
         isAiming = Input.GetMouseButton(1);
 
         float targetZoom = isAiming ? aimZoom : normalZoom;
